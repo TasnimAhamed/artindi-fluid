@@ -1,0 +1,111 @@
+#footer {
+    background-image: radial-gradient(#181B30, #1C203A, #141626);
+    margin-top: 6rem;
+}
+
+.social-media {
+    display: flex;
+    list-style-type: none;
+    margin-top: 2.5rem;
+    li {
+        margin-right: 1rem;
+        a {
+            display: block;
+            width: 2.2rem;
+            height: 2.2rem;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 10px;
+            transition: $transition;
+            &:hover {
+                background-color: $secondary-color;
+            }
+        }
+        .fb {
+            background-image: url(../images/facebook.svg);
+        }
+        .twt {
+            background-image: url(../images/twitter.svg);
+        }
+        .yt {
+            background-image: url(../images/youtube.svg);
+        }
+    }
+}
+
+.footer-links {
+    list-style-type: none;
+    li {
+        a {
+            color: $white-color;
+            font-size: 1rem;
+            transition: $transition;
+            display: block;
+            margin-bottom: .5rem;
+            @media (min-width: 1681px) {
+                font-size: 1.125rem;
+            }
+            &:hover {
+                color: $secondary-color;
+                text-decoration: none;
+                transform: translateX(3px);
+            }
+        }
+    }
+}
+
+.copyright {
+    text-align: center;
+    margin-top: -6rem;
+    @media (max-width: 991px) {
+        margin-top: 0;
+    }
+    @media (max-width:767px) {
+        margin-top: 2rem;
+        margin-bottom: 4rem;
+    }
+}
+
+.f-heading {
+    font-size: 1.5rem;
+    color: $secondary-color;
+    font-family: $font-bold;
+    margin-bottom: 1.8rem;
+}
+
+.abt-blk {
+    max-width: 85%;
+    @media (max-width: 991px) {
+        max-width: 100%;
+    }
+}
+
+.cust-row {
+    .cust-col {
+        position: relative;
+        padding: 5rem 0 8rem 2rem;
+        @media (max-width: 1024px) {
+            padding: 4rem 0 8rem 1rem;
+        }
+        @media (max-width:767px) {
+            padding: 2rem 15px;
+        }
+        &:first-child {
+            &::before {
+                display: none;
+            }
+        }
+        &::before {
+            content: '';
+            height: 100%;
+            width: 1px;
+            background: #272A41;
+            position: absolute;
+            top: 0;
+            left: 0;
+            @media (max-width: 991px) {
+                display: none;
+            }
+        }
+    }
+}

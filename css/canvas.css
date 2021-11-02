@@ -1,0 +1,51 @@
+.banner_canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+img,
+a,
+button,
+form,
+ul,
+li,
+p {
+    color: #ffffff;    
+    position: relative;
+    z-index: 9;
+}
+.hero-section .col-md-4,
+.multiple-items{
+    z-index: 9;
+}
+.pf-rows .col-md-4{
+    z-index: 9;
+}
+.pf-rows .col-md-8{
+    z-index: 8;
+}
+.single-item{
+    z-index: 9;
+    background: url(../images/tt-bg-img.jpg) repeat;
+}
+.blog-section .col-lg-4{
+    z-index: 9;
+}
+div .card3,
+div .card1{
+    z-index: 2;
+}
+
+
+
+/*Work Details Page */
