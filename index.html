@@ -20,10 +20,94 @@
         ga('create', 'UAB-02353925368-12', 'auto');
         ga('send', 'pageview');
     </script>
+    <style>
+        #load-percent{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            z-index: 99999;
+            display: none;
+            transform: translate(-50%,-50%);
+            font-size: 32px;
+            color: #F1BC1E;
+            font-weight: 600;
+        }
+        .goto-top-wrapper {
+            width: 50px;
+            height: 50px;
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            z-index: 9;
+            border-radius: 50%;
+            cursor: pointer;
+            display:none;
+        }
+        .goto-top-wrapper img{
+            width: 20px;
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-180deg);
+            padding-top: 4px;
+        }
+        
+
+        .fadeInRight {
+            -webkit-animation-name: fadeInRight;
+            animation-name: fadeInRight;
+            animation-duration: 500ms;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                -webkit-transform: translate3d(100%, 0, 0);
+                transform: translate3d(100%, 0, 0);
+            }
+
+            to {
+                opacity: 1;
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        svg.radial-progress circle {
+            stroke-width: 2;
+        }
+        svg.web-design circle {
+            stroke: #30bae7;
+        }
+        svg.radial-progress {
+            height: auto;
+            max-width: 100%;
+            transform: rotate(-90deg);
+            width: 100%;
+        }
+
+        svg.radial-progress circle {
+            fill: #151727;
+            stroke-dashoffset: 219.91148575129;
+            stroke-width: 3;
+        }
+
+        svg.radial-progress circle.incomplete {
+            opacity: 0.25;
+        }
+
+        svg.radial-progress circle.complete {
+            stroke-dasharray: 219.91148575129;
+        }
+
+
+    </style>
     <!-- included css end -->
 </head>
 
-<body>
+<body onscroll="bodyScroll();">
+
+
+    <h1 id="load-percent">0</h1>
     <!--page loader start -->
     <div id="page-loader">
         <div class="loader"></div>
@@ -668,6 +752,18 @@
             </div>
         </div>
     </footer>
+
+    <!--Go to Top Wrapper-->
+    <div class="goto-top-wrapper" onclick="goToTop()" id="goToTop">
+        <svg class="radial-progress web-design" data-percentage="90" viewBox="0 0 80 80"> 
+            <circle class="incomplete" cx="40" cy="40" r="35"></circle> 
+            <circle class="complete" cx="40" cy="40" r="35" style="stroke-dashoffset: 0;"></circle>
+        </svg>
+        <img src="./images/down-arrow.svg" alt="artindi">
+    </div>
+
+
+
     <!-- included scripts start -->
     <script src="js/jquery.min.js "></script>
     <script src="js/popper.min.js "></script>
@@ -685,8 +781,11 @@
                 var navFixed = $(window).scrollTop();
                 if(navFixed > 200){
                     $(".main-nav").addClass("fixed-top fadeInDown");
+                    $("#goToTop").addClass("d-block fadeInRight");
                 }else{
                     $(".main-nav").removeClass("fixed-top fadeInDown");
+                    $("#goToTop").removeClass("d-block fadeInRight");
+
                 }
             });
         })
@@ -696,24 +795,81 @@
         $(document).ready(function(){
         
             'use strict';
-            
+            var userHasScrolled = false;
+            var circle=document.getElementsByClassName('complete')[0]
+            circle.removeAttribute('style')
             $(window).on('scroll',function(){
                 var doc_height = $(document).height(),
-                    win_scrolltop= $(window).scrollTop(),
-                    win_height = $(window).height(),
-                    percent= win_scrolltop / (doc_height - win_height) * 100,
-                    percent = Math.round(percent);
-                
-                    document.getElementById('scroll-bar').style.width=  `${percent}%`;
-                    console.log(percent);
-
-            });
+                win_scrollTop= $(window).scrollTop(),
+                win_height = $(window).height(),
+                percent= win_scrollTop / (doc_height - win_height) * 100,
+                percent = Math.round(percent);
+            
+                document.getElementById('scroll-bar').style.width=  `${percent}%`;
+                document.getElementById('load-percent').innerText=  `${percent}%`;
+                var radius=parseInt(circle.getAttribute('r'))
+                var circumference=2 * Math.PI * radius;
+                var strokeDashOffset = circumference - ((percent * circumference) / 100);
+                document.getElementsByClassName('complete')[0].style.strokeDashoffset=`${strokeDashOffset}px`;
+                    
+            });         
         
         });
 
+    
+   
+   
+   </script>
+    
+    <script language="javascript">
+            var scrollTimer = -1;
+        
+            function bodyScroll() {
+
+                console.log("scrolling")
+                document.getElementById('load-percent').style.display="block";
+        
+            if (scrollTimer != -1)
+
+                clearTimeout(scrollTimer);
+        
+                scrollTimer = window.setTimeout("scrollFinished()", 10);
+
+            }
+        
+            function scrollFinished() {
+                console.log("scrolling Stopped!");
+                document.getElementById('load-percent').style.display="none";
+            }
+
+            function goToTop() {
+                 document.documentElement.scrollTop = 0;
+            }
     </script>
 
-     <script>
+    <script>
+        $(document).ready(function(){
+
+           
+            // $(window).scroll(function() {
+            //     $('svg.radial-progress').each(function(index, value) {
+            //         // If svg.radial-progress is approximately 25% vertically into the window when scrolling from the top or the bottom
+            //             // Get percentage of progress
+            //             percent = $(value).data('percentage');
+            //             // Get radius of the svg's circle.complete
+            //             radius = $(this).find($('circle.complete')).attr('r');
+            //             // Get circumference (2πr)
+            //             circumference = 2 * Math.PI * radius;
+            //             // Get stroke-dashoffset value based on the percentage of the circumference
+            //             strokeDashOffset = circumference - ((percent * circumference) / 100);
+            //             // Transition progress for 1.25 seconds
+            //             $(this).find($('circle.complete')).animate({ 'stroke-dashoffset': strokeDashOffset }, 1250);
+            //     });
+            // }).trigger('scroll');
+        })
+    </script>
+
+     <!-- <script>
         document.onkeydown = function(e) {
         if(event.keyCode == 123) {
         return false;
@@ -751,7 +907,7 @@
     $(document).bind("contextmenu",function(e) {
         e.preventDefault();
     });
-    </script>
+    </script> -->
 
 </body>
 

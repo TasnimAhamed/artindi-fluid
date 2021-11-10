@@ -1,4 +1,7 @@
 @media (min-width: 320px) and (max-width:575px) {
+    .scroll-bar{
+        top: 80px;
+      }
 
     .lg-view-cards{
         display: none;
@@ -275,6 +278,10 @@
 
 }
 @media (min-width: 576px) and (max-width:767px) {
+    .scroll-bar{
+        top: 80px;
+      }
+
     .lg-view-cards{
         display: none;
     }
@@ -485,6 +492,10 @@
 
 }
 @media (min-width: 768px) and (max-width:991px) {
+    .scroll-bar{
+        top: 80px;
+      }
+
     .lg-view-cards{
         display: none;
     }

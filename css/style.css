@@ -2458,6 +2458,7 @@ header .navbar .navbar-collapse .navbar-nav .nav-item .nav-link.active::after, h
   -webkit-transform: translateX(0);
           transform: translateX(0);
   background: #151727;
+  z-index: 10;
 }
 
 .floting-blk .float-header {
